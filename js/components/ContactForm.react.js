@@ -10,24 +10,28 @@ var ContactForm = React.createClass({
   },
 
   componentDidMount: function() {
-    ContactStore.addChangeListener(this._onChange);
   },
 
   componentWillUnmount: function() {
-    ContactStore.removeChangeListener(this._onChange);
   },
 
 	/**
    * @return {object}
    */
   render: function() {
-    var contact = this.props.contact;
-    if(!contact) {
+    var contactId = this.props.params.contactId;
+    var contact;
+    if(!contactId) {
       contact = {};
+    } else {
+      contact = ContactStore.getOne(contactId);
+      // console.log(contact);
+      this.contact = contact;
     }
+
     return (
     	<section id="contact-form">
-	      <h2 className="page-header text-center">New or oldContact</h2>
+	      <h2 className="page-header text-center">New or old Contact</h2>
         
         <form role="form" className="form-horizontal contract-form">
           <div className="form-group">
@@ -69,17 +73,21 @@ var ContactForm = React.createClass({
   },
 
   onSubmit: function(event) {
-    var name = $(".contact-name-input").val().trim();
-    if(!name) {
-      return;
+    if(this.contact) {
+      //Save the contact
+    } else {
+      //Create a new contact
+      var name = $(".contact-name-input").val().trim();
+      if(!name) {
+        return;
+      }
+
+      ContactActions.create(Date.now(), name, 
+        $(".contact-email-input").val(), $(".contact-tel-input").val());
+
+      window.location="#contacts";
     }
-
-    ContactActions.create(Date.now(), name, 
-      $(".contact-email-input").val(), $(".contact-tel-input").val());
-    
-    window.location="#contacts";
-
-
+      
   }
 });
 

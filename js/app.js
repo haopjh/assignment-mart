@@ -20,6 +20,7 @@ var routes = (
 	<Route path="/">
     <Route name="contacts" path="/contacts" handler={ContactList}/>
     <Route name="new" path="/contacts/new" handler={ContactForm}/>
+    <Route name="edit" path="/contacts/edit/:contactId" handler={ContactForm}/>
     <Redirect from="/" to="contacts"/>
   </Route>
 );

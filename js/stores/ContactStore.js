@@ -67,6 +67,14 @@ var ContactStore = assign({}, EventEmitter.prototype, {
     return _contacts;
   },
 
+  /**
+   * Get the entire collection of Contact.
+   * @return {object}
+   */
+  getOne: function(contactId) {
+    return _contacts[contactId];
+  },
+
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },

@@ -25,6 +25,7 @@ var ContactItem = React.createClass({
     }
 
     var imgSource = "/img/faces/" + contact.avatar;
+    var editLink = "#contacts/edit/" + contact.id;
 
     return (
       <section id="contact-item" className="media col-md-6 col-lg-4">
@@ -35,8 +36,8 @@ var ContactItem = React.createClass({
           <h3>
             {contact.name}
             <small>
-              <a href="#contacts/edit/<%- id %>"><span className="glyphicon glyphicon-pencil"></span></a>
-              <a href="#contacts/delete/<%- id %>" className="delete-contract">
+              <a href={editLink}><span className="glyphicon glyphicon-pencil"></span></a>
+              <a href="#contacts/delete/{id}" className="delete-contract">
                 <span className="glyphicon glyphicon-trash"></span>
               </a>
             </small>
