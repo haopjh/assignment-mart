@@ -1,10 +1,12 @@
 var React = require('react');
-// var ContactStore = require('../stores/ContactStore');
+var ContactActions = require('../actions/ContactActions');
 
 var ContactItem = React.createClass({
 
   getInitialState: function() {
-    return {};
+    return {
+      contact: this.props.contact
+    }
   },
 
   // componentDidMount: function() {
@@ -37,7 +39,7 @@ var ContactItem = React.createClass({
             {contact.name}
             <small>
               <a href={editLink}><span className="glyphicon glyphicon-pencil"></span></a>
-              <a href="#contacts/delete/{id}" className="delete-contract">
+              <a onClick={this.onDelete} className="delete-contract">
                 <span className="glyphicon glyphicon-trash"></span>
               </a>
             </small>
@@ -55,6 +57,10 @@ var ContactItem = React.createClass({
       </section>
     );
   },
+
+  onDelete: function() {
+    ContactActions.destroy(this.props.contact.id);
+  }
 
   /**
    * Event handler for 'change' events coming from the TodoStore

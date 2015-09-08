@@ -13,8 +13,6 @@ var ContactList = require('./components/ContactList.react'),
 
 require("./helper/fixture");
 
-
-
 //Create and initialize the routes
 var routes = (
 	<Route path="/">

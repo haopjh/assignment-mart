@@ -13,8 +13,9 @@ var _contacts = {};
  * @param  {string} email
  */
 function create(id, name, tel, email, avatar) {
-  if(!avatar);
-  avatar = Math.ceil(Math.random()*15) + '.jpg';
+  if(!avatar) {
+    avatar = Math.ceil(Math.random()*15) + '.jpg';
+  }
 
   _contacts[id] = {
     id: id,
@@ -25,7 +26,11 @@ function create(id, name, tel, email, avatar) {
   };
 }
 
-function createContacts(contacts) {
+/**
+ * Create a list Contacts.
+ * @param  {list} contacts
+ */
+function createList(contacts) {
   if(contacts.length) {
     for(var i=0; i< contacts.length; i++) {
       var contact = contacts[i];
@@ -45,7 +50,7 @@ function createContacts(contacts) {
  *     updated.
  */
 function update(id, updates) {
-  _contacts[id] = assign({}, _contacts[id], updates);
+  _contacts[id] = assign(_contacts[id], updates);
 }
 
 /**
@@ -99,22 +104,22 @@ AppDispatcher.register(function(action) {
   var text;
 
   switch(action.actionType) {
-    case "create":
+    case "createContact":
       create(action.id, action.name, action.tel, action.email);
       ContactStore.emitChange();
       break;
 
     case "createContacts":
-      createContacts(action.contacts);
+      createList(action.contacts);
       ContactStore.emitChange();
       break;
 
-    case "update":
-      update(action.id, action.name, action.tel, action.email);
+    case "updateContact":
+      update(action.id, action.contact);
       ContactStore.emitChange();
       break;
 
-    case "destroy":
+    case "deleteContact":
       destroy(action.id);
       ContactStore.emitChange();
       break;

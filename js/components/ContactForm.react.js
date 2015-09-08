@@ -6,7 +6,11 @@ var Router = require('react-router');
 var ContactForm = React.createClass({
 
   getInitialState: function() {
-    return {};
+    var contactId = this.props.params.contactId;
+
+    return {
+      contact: ContactStore.getOne(contactId)
+    };
   },
 
   componentDidMount: function() {
@@ -19,15 +23,8 @@ var ContactForm = React.createClass({
    * @return {object}
    */
   render: function() {
-    var contactId = this.props.params.contactId;
-    var contact;
-    if(!contactId) {
-      contact = {};
-    } else {
-      contact = ContactStore.getOne(contactId);
-      // console.log(contact);
-      this.contact = contact;
-    }
+    //Initialise the contact if any
+    var contact = this.state.contact ? this.state.contact : {};
 
     return (
     	<section id="contact-form">
@@ -73,8 +70,17 @@ var ContactForm = React.createClass({
   },
 
   onSubmit: function(event) {
-    if(this.contact) {
+    if(this.state.contact) {
       //Save the contact
+      var updatedContact = {
+        name: $(".contact-name-input").val().trim(),
+        email: $(".contact-email-input").val().trim(),
+        tel: $(".contact-tel-input").val().trim()
+      }
+      
+      ContactActions.update(this.state.contact.id, updatedContact);
+
+      window.location="#contacts";
     } else {
       //Create a new contact
       var name = $(".contact-name-input").val().trim();

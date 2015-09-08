@@ -2,10 +2,16 @@ var React = require('react');
 var ContactStore = require('../stores/ContactStore');
 var ContactItem = require('../components/ContactItem.react');
 
+function getContactState() {
+  return {
+    allContacts: ContactStore.getAll()
+  };
+}
+
 var ContactList = React.createClass({
 
   getInitialState: function() {
-    return {};
+    return getContactState();
   },
 
   componentDidMount: function() {
@@ -21,12 +27,22 @@ var ContactList = React.createClass({
    */
   render: function() {
 
-    var allContacts = ContactStore.getAll();
     var contacts = [];
 
-    for (var key in allContacts) {
-      contacts.push(<ContactItem key={key} contact={allContacts[key]} />);
+    if(contacts.length) {
+      for (var key in this.state.allContacts) {
+        contacts.push(<ContactItem key={key} contact={this.state.allContacts[key]} />);
+      }
+    } else {
+      contacts.push(
+        <div className="no-contact-content"> 
+          No contacts have been added. <br />
+          Add a contact now.
+        </div>
+      );
     }
+      
+
 
     return (
     	<section id="contact-list">
@@ -37,6 +53,7 @@ var ContactList = React.createClass({
 	      <ul className="media-list row contacts-container">
           {contacts}
         </ul>
+
 	    </section>
     );
   },
@@ -45,7 +62,7 @@ var ContactList = React.createClass({
    * Event handler for 'change' events coming from the TodoStore
    */
   _onChange: function() {
-    //Do nothing for now
+    this.setState(getContactState());
   }
 });
 

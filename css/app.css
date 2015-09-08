@@ -87,3 +87,13 @@ a.thumbnail:focus,
 a.thumbnail.active {
   border-color: #563d7c;
 }
+a.delete-contract {
+  cursor: pointer;
+}
+.no-contact-content {
+  text-align: center;
+  margin-top: 30px;
+  color: #C3C3C9;
+  font-size: 24px;
+  font-weight: 300;
+}
