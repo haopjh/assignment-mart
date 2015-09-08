@@ -44,10 +44,16 @@ This will perform an initial build and start a watcher process that will update 
 To run the app, spin up an HTTP server and visit http://localhost/.../todomvc-flux/.  Or simply open the index.html file in a browser.
 
 
-## Improvements to the App
+## Current Improvements
 
 - Form validation
 - No contacts copy
+
+## Future Improvements
+
+- Popup modal to add or edit users
+- After user creation, scroll to newly added user location
+- Clearer form input rules
 
 
 ## Credit
