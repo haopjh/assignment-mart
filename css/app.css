@@ -97,3 +97,6 @@ a.delete-contract {
   font-size: 24px;
   font-weight: 300;
 }
+.contact-btn-container a {
+  margin-left: 10px;
+}

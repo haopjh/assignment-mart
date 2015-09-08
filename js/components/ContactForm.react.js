@@ -83,17 +83,58 @@ var ContactForm = React.createClass({
       window.location="#contacts";
     } else {
       //Create a new contact
+
+      //Check if inputs are entered correctly
+      var verified = true;
+
+      //Validate name
       var name = $(".contact-name-input").val().trim();
       if(!name) {
-        return;
+        $(".contact-name-input").parent().addClass("has-error");
+        $(".contact-name-input").attr("placeholder", "Please enter a valid name");
+        verified = false;
+      } else {
+        $(".contact-name-input").parent().removeClass("has-error");
       }
 
-      ContactActions.create(Date.now(), name, 
-        $(".contact-email-input").val(), $(".contact-tel-input").val());
 
-      window.location="#contacts";
+      //Validate email
+      var email = $(".contact-email-input").val();
+      if(!this.validateEmail(email)) {
+        $(".contact-email-input").parent().addClass("has-error");
+        $(".contact-email-input").attr("placeholder", "Please enter a valid email");
+        verified = false;
+      } else {
+        $(".contact-email-input").parent().removeClass("has-error");
+      }
+
+      //Validate tel
+      var tel = $(".contact-tel-input").val();
+      if(!this.validateTel(tel)) {
+        $(".contact-tel-input").parent().addClass("has-error");
+        $(".contact-tel-input").attr("placeholder", "Please enter a valid telephone number");
+        verified = false;
+      } else {
+        $(".contact-tel-input").parent().removeClass("has-error");
+      }
+
+
+      if(verified) {
+        ContactActions.create(Date.now(), name, email , tel);
+
+        window.location="#contacts";
+      }
     }
-      
+  },
+
+  validateEmail: function(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+  },
+
+  validateTel: function(tel) {
+    var re = /^[0-9\s(-)]*$/;
+    return tel.length > 0 && re.test(tel);
   }
 });
 

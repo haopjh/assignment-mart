@@ -9,14 +9,6 @@ var ContactItem = React.createClass({
     }
   },
 
-  // componentDidMount: function() {
-  //   ContactStore.addChangeListener(this._onChange);
-  // },
-
-  // componentWillUnmount: function() {
-  //   ContactStore.removeChangeListener(this._onChange);
-  // },
-
   /**
    * @return {object}
    */
@@ -37,7 +29,7 @@ var ContactItem = React.createClass({
         <div className="media-heading">
           <h3>
             {contact.name}
-            <small>
+            <small className="contact-btn-container">
               <a href={editLink}><span className="glyphicon glyphicon-pencil"></span></a>
               <a onClick={this.onDelete} className="delete-contract">
                 <span className="glyphicon glyphicon-trash"></span>
