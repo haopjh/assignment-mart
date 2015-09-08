@@ -70,71 +70,72 @@ var ContactForm = React.createClass({
   },
 
   onSubmit: function(event) {
-    if(this.state.contact) {
-      //Save the contact
-      var updatedContact = {
-        name: $(".contact-name-input").val().trim(),
-        email: $(".contact-email-input").val().trim(),
-        tel: $(".contact-tel-input").val().trim()
-      }
-      
-      ContactActions.update(this.state.contact.id, updatedContact);
+    //Check if inputs are entered correctly
+    var verified = true;
 
-      window.location="#contacts";
+    //Validate name
+    var name = $(".contact-name-input").val().trim();
+    if(!name) {
+      $(".contact-name-input").parent().addClass("has-error");
+      $(".contact-name-input").attr("placeholder", "Please enter a valid name");
+      verified = false;
     } else {
-      //Create a new contact
-
-      //Check if inputs are entered correctly
-      var verified = true;
-
-      //Validate name
-      var name = $(".contact-name-input").val().trim();
-      if(!name) {
-        $(".contact-name-input").parent().addClass("has-error");
-        $(".contact-name-input").attr("placeholder", "Please enter a valid name");
-        verified = false;
-      } else {
-        $(".contact-name-input").parent().removeClass("has-error");
-      }
-
-
-      //Validate email
-      var email = $(".contact-email-input").val();
-      if(!this.validateEmail(email)) {
-        $(".contact-email-input").parent().addClass("has-error");
-        $(".contact-email-input").attr("placeholder", "Please enter a valid email");
-        verified = false;
-      } else {
-        $(".contact-email-input").parent().removeClass("has-error");
-      }
-
-      //Validate tel
-      var tel = $(".contact-tel-input").val();
-      if(!this.validateTel(tel)) {
-        $(".contact-tel-input").parent().addClass("has-error");
-        $(".contact-tel-input").attr("placeholder", "Please enter a valid telephone number");
-        verified = false;
-      } else {
-        $(".contact-tel-input").parent().removeClass("has-error");
-      }
-
-
-      if(verified) {
-        ContactActions.create(Date.now(), name, email , tel);
-
-        window.location="#contacts";
-      }
+      $(".contact-name-input").parent().removeClass("has-error").addClass("has-success");
     }
+
+
+    //Validate email
+    var email = $(".contact-email-input").val();
+    if(!this.validateEmail(email)) {
+      $(".contact-email-input").parent().addClass("has-error");
+      $(".contact-email-input").attr("placeholder", "Please enter a valid email");
+      verified = false;
+    } else {
+      $(".contact-email-input").parent().removeClass("has-error").addClass("has-success");
+    }
+
+    //Validate tel
+    var tel = $(".contact-tel-input").val();
+    if(!this.validateTel(tel)) {
+      $(".contact-tel-input").parent().addClass("has-error");
+      $(".contact-tel-input").attr("placeholder", "Please enter a valid telephone number");
+      verified = false;
+    } else {
+      $(".contact-tel-input").parent().removeClass("has-error").addClass("has-success");
+    }
+
+    if(verified) {
+      if(this.state.contact) {
+        //Save the contact
+        var updatedContact = {
+          name: name,
+          email:email,
+          tel: tel
+        }
+        
+        ContactActions.update(this.state.contact.id, updatedContact);
+      } else {
+        //Create a new contact
+        ContactActions.create(Date.now(), name, email , tel);
+      }
+
+      //Route user back to contact list
+      window.location="#contacts";
+    }
+      
   },
 
   validateEmail: function(email) {
+    //Must follow email convention. E.g. val@val.val
     var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
     return re.test(email);
   },
 
   validateTel: function(tel) {
-    var re = /^[0-9\s(-)]*$/;
-    return tel.length > 0 && re.test(tel);
+    //Only allow numbers and dashes
+    var parsedTel = tel.replace(/-/g,"");
+    var re = /^[0-9\g(-)]*$/;
+    return parsedTel.length > 0 && re.test(parsedTel);
   }
 });
 

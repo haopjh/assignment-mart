@@ -44,6 +44,12 @@ This will perform an initial build and start a watcher process that will update 
 To run the app, spin up an HTTP server and visit http://localhost/.../todomvc-flux/.  Or simply open the index.html file in a browser.
 
 
+## Improvements to the App
+
+### Form validation
+### No contacts copy
+
+
 ## Credit
 
 This ContactManager application adopts the Flux React boilerplate created by [Bill Fisher](https://www.facebook.com/bill.fisher.771).
