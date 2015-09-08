@@ -46,8 +46,8 @@ To run the app, spin up an HTTP server and visit http://localhost/.../todomvc-fl
 
 ## Improvements to the App
 
-### Form validation
-### No contacts copy
+- Form validation
+- No contacts copy
 
 
 ## Credit
