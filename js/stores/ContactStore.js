@@ -1,10 +1,9 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
-var CHANGE_EVENT = 'change';
 
 var _contacts = {};
-
+var CHANGE_EVENT = "change";
 /**
  * Create a Contact item.
  * @param  {number} id

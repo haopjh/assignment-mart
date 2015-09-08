@@ -28,8 +28,9 @@ var ContactList = React.createClass({
   render: function() {
 
     var contacts = [];
+    var keyList = Object.keys(this.state.allContacts);
 
-    if(contacts.length) {
+    if(keyList.length) {
       for (var key in this.state.allContacts) {
         contacts.push(<ContactItem key={key} contact={this.state.allContacts[key]} />);
       }
@@ -62,6 +63,7 @@ var ContactList = React.createClass({
    * Event handler for 'change' events coming from the TodoStore
    */
   _onChange: function() {
+    console.log("this ran");
     this.setState(getContactState());
   }
 });
