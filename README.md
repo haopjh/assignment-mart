@@ -28,7 +28,9 @@ Here is a breakdown of the application's static files
 
 ## Running
 
-You must have [npm](https://www.npmjs.org/) installed on your computer.
+You can view the app at http://52.74.222.10:8080 or run the app locally. 
+
+To run the app locally, you must have [npm](https://www.npmjs.org/) installed on your computer.
 From the root project directory run these commands from the command line:
 
     npm install
@@ -54,7 +56,6 @@ To run the app, spin up an HTTP server and visit http://localhost/.../todomvc-fl
 - Popup modal to add or edit users
 - After user creation, scroll to newly added user location
 - Clearer form input rules
-
 
 ## Credit
 
